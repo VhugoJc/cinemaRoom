@@ -11,6 +11,12 @@ public class Cinema {
         return total_rows;
     }
 
+    public Cinema(Cinema obj) {
+        this.total_rows = obj.total_rows;
+        this.total_columns = obj.total_columns;
+        this.available_seats = obj.available_seats;
+    }
+
     public Cinema(int total_rows, int total_columns, List<Seat> available_seats) {
         this.total_rows = total_rows;
         this.total_columns = total_columns;
