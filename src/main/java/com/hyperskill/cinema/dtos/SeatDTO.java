@@ -1,32 +1,26 @@
 package com.hyperskill.cinema.dtos;
 
-public class SeatDTO
-{
-    private int row;
-    private int column;
-    private int price;
+import com.hyperskill.cinema.models.Ticket;
 
-    public int getRow() {
-        return row;
+import java.util.UUID;
+
+public class SeatDTO{
+    private Ticket ticket;
+    private UUID token;
+
+    public UUID getToken() {
+        return token;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setToken(UUID token) {
+        this.token = token;
     }
 
-    public int getColumn() {
-        return column;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 }
