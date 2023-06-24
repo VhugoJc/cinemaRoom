@@ -13,6 +13,9 @@ public class Seat {
         this.price = row <= 4 ? 10 : 8;
     }
 
+    public Seat() {
+    }
+
     public int getRow() {
         return row;
     }
