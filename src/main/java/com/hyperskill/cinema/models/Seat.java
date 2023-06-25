@@ -5,43 +5,15 @@ import java.util.UUID;
 public class Seat {
 
     private boolean purchase;
-    private UUID token;
-    private Ticket ticket;
+    private int row;
+    private int column;
+    int price;
 
     public Seat(int row, int column) {
-        this.token =  UUID.randomUUID();
+        this.row = row;
+        this.column = column;
+        this.price = row<=4 ?10 :8;
         this.purchase = false;
-        this.ticket = new Ticket();
-        this.ticket.setRow(row);
-        this.ticket.setColumn(column);
-        this.ticket.setPrice(row <= 4 ? 10 : 8);
-    }
-
-    public Seat() {
-    }
-    // for SeatDTO
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
-
-    public UUID getToken() {
-        return token;
-    }
-
-    public void setToken(UUID token) {
-        this.token = token;
-    }
-
-    //
-    public int getRow() {
-        return ticket.getRow();
-    }
-    public int getColumn() {
-        return ticket.getColumn();
     }
 
     public boolean isPurchase() {
@@ -50,5 +22,29 @@ public class Seat {
 
     public void setPurchase(boolean purchase) {
         this.purchase = purchase;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
