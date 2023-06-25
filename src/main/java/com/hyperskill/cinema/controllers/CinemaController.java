@@ -7,6 +7,7 @@ import com.hyperskill.cinema.models.Purchase;
 import com.hyperskill.cinema.requests.PurchaseRequest;
 import com.hyperskill.cinema.requests.ReturnRequest;
 import com.hyperskill.cinema.response.ReturnResponse;
+import com.hyperskill.cinema.response.StatsResponse;
 import com.hyperskill.cinema.services.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping
@@ -38,5 +40,14 @@ public class CinemaController {
     ResponseEntity<?> postReturn(@RequestBody ReturnRequest returnRequest){
         PurchaseDTO rep = this.modelMapper.map(this.cinemaService.returnSeat(returnRequest), PurchaseDTO.class);
         return new ResponseEntity<PurchaseDTO>(rep,HttpStatus.OK);
+    }
+
+    @PostMapping("/stats")
+    ResponseEntity<?> postStatics(@RequestParam String password){
+        if(!password.equals("super_secret")){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "The password is wrong!");
+        }
+
+        return new ResponseEntity<StatsResponse>(this.cinemaService.getStats(), HttpStatus.OK);
     }
 }
