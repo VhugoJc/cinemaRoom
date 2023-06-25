@@ -8,6 +8,7 @@ import com.hyperskill.cinema.repositories.CinemaRepository;
 import com.hyperskill.cinema.repositories.PurchaseRepository;
 import com.hyperskill.cinema.requests.PurchaseRequest;
 import com.hyperskill.cinema.requests.ReturnRequest;
+import com.hyperskill.cinema.response.ReturnResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,14 @@ public class CinemaService {
         return newPurchase;
     }
 
-
+    public ReturnResponse returnSeat(ReturnRequest returnReq) {
+        List<Purchase> purchaseList = this.purchaseRepository.getAll();
+        Purchase purchase = purchaseList.stream()
+                .filter(p -> p.getToken().equals(returnReq.getToken()))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Wrong token!"));
+        this.purchaseRepository.remove(purchase);
+        ReturnResponse resp = new ReturnResponse(purchase.getTicket().getRow(),purchase.getTicket().getColumn());
+        return resp;
+    }
 }

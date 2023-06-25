@@ -2,11 +2,11 @@ package com.hyperskill.cinema.controllers;
 
 import com.hyperskill.cinema.dtos.CinemaDTO;
 
-import com.hyperskill.cinema.dtos.SeatDTO;
+import com.hyperskill.cinema.dtos.PurchaseDTO;
 import com.hyperskill.cinema.models.Purchase;
-import com.hyperskill.cinema.models.Seat;
 import com.hyperskill.cinema.requests.PurchaseRequest;
 import com.hyperskill.cinema.requests.ReturnRequest;
+import com.hyperskill.cinema.response.ReturnResponse;
 import com.hyperskill.cinema.services.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import org.modelmapper.ModelMapper;
 
 @RestController
 @RequestMapping
-public class SeatsController {
+public class CinemaController {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -36,6 +36,7 @@ public class SeatsController {
 
     @PostMapping("/return")
     ResponseEntity<?> postReturn(@RequestBody ReturnRequest returnRequest){
-        return new ResponseEntity<>(HttpStatus.OK);
+        PurchaseDTO rep = this.modelMapper.map(this.cinemaService.returnSeat(returnRequest), PurchaseDTO.class);
+        return new ResponseEntity<PurchaseDTO>(rep,HttpStatus.OK);
     }
 }
