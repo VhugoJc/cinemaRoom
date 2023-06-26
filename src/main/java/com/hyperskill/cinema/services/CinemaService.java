@@ -25,10 +25,13 @@ public class CinemaService {
     private CinemaRepository cinemaRepository;
     @Autowired
     private PurchaseRepository purchaseRepository;
+
+    // Retrieves all seats in the cinema.
     public Cinema getAllSeats() {
         return this.cinemaRepository.get();
     }
 
+    // Retrieves the available seats in the cinema.
     public Cinema getAvailableSeats (){
         Cinema cinema = new Cinema(getAllSeats());
         List<Seat> seatList = cinema.getAvailable_seats();
@@ -39,6 +42,7 @@ public class CinemaService {
         return cinema;
     }
 
+    // Sets a seat as purchased based on the purchase request.
     public Purchase setSeat(PurchaseRequest request){
         List<Seat> seatList = getAllSeats().getAvailable_seats();
 
@@ -57,6 +61,7 @@ public class CinemaService {
         return newPurchase;
     }
 
+    // Returns a purchased seat based on the return request.
     public ReturnResponse returnSeat(ReturnRequest returnReq) {
         List<Purchase> purchaseList = this.purchaseRepository.getAll();
         Purchase purchase = purchaseList.stream()
@@ -68,6 +73,7 @@ public class CinemaService {
         return resp;
     }
 
+    // Retrieves the statistics of the cinema.
     public StatsResponse getStats(){
         List<Purchase> purchaseList = this.purchaseRepository.getAll();
         List<Seat> seatList = getAllSeats().getAvailable_seats();

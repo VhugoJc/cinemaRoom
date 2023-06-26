@@ -10,12 +10,14 @@ import java.util.stream.IntStream;
 
 @Repository
 public class CinemaRepository {
-    private Cinema cinema = createCinema(9,9);
+    private Cinema cinema = createCinema(9,9); // create local cinema with available seats
 
+    // Retrieves the cinema object.
     public Cinema get(){
         return cinema;
     }
 
+    // Creates a new cinema with the specified number of rows and columns.
     public Cinema createCinema (int rows, int columns) {
         List<Seat> seatList = IntStream.rangeClosed(1, rows)
                 .boxed()

@@ -25,23 +25,28 @@ public class CinemaController {
     @Autowired
     private CinemaService cinemaService;
 
+    // Retrieves the available seats in the cinema.
     @GetMapping("/seats")
     ResponseEntity<?> getSeats () {
         CinemaDTO response = this.modelMapper.map(this.cinemaService.getAvailableSeats(), CinemaDTO.class);
         return new ResponseEntity<CinemaDTO>(response,HttpStatus.OK);
     }
+
+    // Posts a purchase request for a seat.
     @PostMapping("/purchase")
     ResponseEntity<?> postPurchase (@RequestBody PurchaseRequest purchase) {
         Purchase seat = this.cinemaService.setSeat(purchase);
         return new ResponseEntity<Purchase>(seat,HttpStatus.OK);
     }
 
+    // Posts a return request for a seat.
     @PostMapping("/return")
     ResponseEntity<?> postReturn(@RequestBody ReturnRequest returnRequest){
         PurchaseDTO rep = this.modelMapper.map(this.cinemaService.returnSeat(returnRequest), PurchaseDTO.class);
         return new ResponseEntity<PurchaseDTO>(rep,HttpStatus.OK);
     }
 
+    // Posts a request for cinema statistics.
     @PostMapping("/stats")
     ResponseEntity<?> postStatics(@RequestParam String password){
         if(!password.equals("super_secret")){
